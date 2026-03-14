@@ -24,10 +24,10 @@ export default function LandingPage() {
       {/* 2. The Preview Box - Higher Contrast for Testing Team Demo */}
       <div className="w-full max-w-3xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl mb-10 p-8 relative">
         <div className="flex flex-col space-y-6">
-           {/* User Message */}
-           <div className="bg-scarlet text-slate-900 self-end p-4 rounded-2xl rounded-tr-none text-sm font-medium max-w-[80%] shadow-md">
-             What is Software Engineering and will AI be taking over?
-           </div>
+          {/* User Message */}
+          <div className="bg-blue-600 text-white dark:bg-blue-400 dark:text-slate-900 self-end p-4 rounded-2xl rounded-tr-none text-sm font-medium max-w-[80%] shadow-md">
+        What is Software Engineering and will AI be taking over?
+          </div>
            
            {/* AI Response Area */}
            <div className="flex items-start gap-4">
