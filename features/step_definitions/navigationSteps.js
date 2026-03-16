@@ -35,3 +35,31 @@ Then('the signup page should load', async function () {
   const url = page.url();
   assert.strictEqual(url, 'http://localhost:3000/signup');
 });
+
+When('the user visits the login page', async function () {
+  await page.goto('http://localhost:3000/login', { waitUntil: 'networkidle0' });
+});
+
+Then('the login page should load', async function () {
+  const url = page.url();
+  assert.strictEqual(url, 'http://localhost:3000/login');
+});
+
+When('the user visits the guest chat page', async function () {
+  await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle0' });
+});
+
+Then('the guest chat page should load', async function () {
+  const url = page.url();
+  assert.strictEqual(url, 'http://localhost:3000/chat');
+});
+
+Then('the create account button should be visible', async function () {
+  const content = await page.content();
+  assert.ok(content.includes('CREATE ACCOUNT'));
+});
+
+Then('the guest access button should be visible', async function () {
+  const content = await page.content();
+  assert.ok(content.includes('GUEST ACCESS'));
+});
