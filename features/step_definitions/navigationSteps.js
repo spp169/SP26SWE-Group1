@@ -1,6 +1,6 @@
-const { Given, When, Then, Before, After } = require('@cucumber/cucumber');
-const assert = require('assert');
-const puppeteer = require('puppeteer');
+import { Given, When, Then, Before, After } from '@cucumber/cucumber';
+import assert from 'assert';
+import puppeteer from 'puppeteer';
 
 let browser;
 let page;

@@ -15,7 +15,7 @@ function LandingPage() {
   const [chatIdx, setChatIdx] = useState(0);
   const [messages, setMessages] = useState<{ type: 'user' | 'ai'; text: string }[]>([]);
   const [currentTyping, setCurrentTyping] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const isTyping = step === 1 || step === 3 || step === 4;
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -25,17 +25,11 @@ function LandingPage() {
       timer = setTimeout(() => {
         setMessages([]);
         setCurrentTyping('');
-        setIsTyping(false);
         setStep(1);
       }, messages.length === 0 ? 1000 : 4000);
 
     } else if (step === 1) {
       // USER TYPING
-      if (!isTyping) {
-        setIsTyping(true);
-        setCurrentTyping(''); // Clear before starting
-      }
-      
       const fullText = SAMPLE_CHATS[chatIdx].prompt;
       if (currentTyping.length < fullText.length) {
         timer = setTimeout(() => {
@@ -45,7 +39,6 @@ function LandingPage() {
         // Finished typing
         timer = setTimeout(() => {
           setMessages([{ type: 'user', text: fullText }]);
-          setIsTyping(false);
           setCurrentTyping('');
           setStep(2);
         }, 800);
@@ -57,19 +50,12 @@ function LandingPage() {
 
     } else if (step === 3) {
       // AI THINKING
-      if (!isTyping) setIsTyping(true);
       timer = setTimeout(() => {
-        setIsTyping(false);
         setStep(4);
       }, 2500);
 
     } else if (step === 4) {
       // AI TYPING
-      if (!isTyping) {
-        setIsTyping(true);
-        setCurrentTyping(''); // Clear before starting
-      }
-
       const fullResponse = SAMPLE_CHATS[chatIdx].response;
       if (currentTyping.length < fullResponse.length) {
         timer = setTimeout(() => {
@@ -79,7 +65,6 @@ function LandingPage() {
         // Finished AI Response
         timer = setTimeout(() => {
           setMessages(prev => [...prev, { type: 'ai', text: fullResponse }]);
-          setIsTyping(false);
           setCurrentTyping('');
           setChatIdx((prev) => (prev + 1) % SAMPLE_CHATS.length);
           setStep(0); // Back to reset phase
@@ -88,7 +73,7 @@ function LandingPage() {
     }
 
     return () => clearTimeout(timer);
-  }, [step, currentTyping, chatIdx, messages.length, isTyping]);
+  }, [step, currentTyping, chatIdx, messages.length]);
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center p-4">
@@ -134,10 +119,10 @@ function LandingPage() {
             <>
               {step === 1 && (
                 <div className="flex justify-end">
-                    <div className="bg-[#cc0033] text-white p-4 rounded-2xl rounded-tr-none text-sm font-medium max-w-[80%] shadow-md">
+                  <div className="bg-[#cc0033] text-white p-4 rounded-2xl rounded-tr-none text-sm font-medium max-w-[80%] shadow-md">
                     {currentTyping}
                     <span className="animate-pulse ml-0.5 font-thin">|</span>
-                    </div>
+                  </div>
                 </div>
               )}
               {step === 3 && (

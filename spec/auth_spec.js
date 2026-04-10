@@ -1,5 +1,5 @@
 // spec/auth_spec.js
-const { validateSignup } = require('../src/lib/auth-logic');
+import { validateSignup } from '../src/lib/auth-logic';
 
 describe("Sign Up Validation Logic", function() {
   
